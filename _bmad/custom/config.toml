@@ -9,11 +9,23 @@
 [agents.bmad-agent-pm]
 name = "fake-Jan"
 
+[agents.bmad-agent-dev]
+name = "fake-Marceli"
+
+[agents.bmad-agent-architect]
+name = "fake-Tomek"
+
 [agents.bmad-agent-ux-designer]
-name = "Sally (Disabled)"
+name = "fake-Ela (Disabled)"
 title = "UX Designer"
 icon = "🚫"
-description = "WYŁĄCZONA: W tym projekcie decyzje UI/UX są podejmowane bezpośrednio przez Marcelego we współpracy z ludzkim projektantem. Agent UX nie uczestniczy w pracach."
+description = "WYŁĄCZONA: W tym projekcie decyzje UI/UX są podejmowane bezpośrednio przez Marcelego we współpracy z prawdziwą Elą. Agent UX nie uczestniczy w pracach."
+
+[agents.bmad-agent-analyst]
+name = "Mary (Disabled)"
+title = "Business Analyst"
+icon = "🚫"
+description = "WYŁĄCZONA: W tym projekcie analiza biznesowa została połączona z rolą PM-a (fake-Jan), co odzwierciedla strukturę rzeczywistego zespołu, w którym prawdziwy Jan pełni obie te role."
 
 [[agents.bmad-agent-pm.menu]]
 code = "AJ"

@@ -24,7 +24,7 @@ Run them in parallel for independent first-takes; run them sequentially when you
 
 ## Weave the replies into one conversation
 
-Even with everyone caught up on the room, a round taken in parallel means no agent has yet seen the others' turns from that same round — so left raw they reply alongside one another, not to one another. Reorder turns so a rebuttal lands right after what it rebuts, add the connective phrasing real talk has ("Hold on, Winston, that's backwards", "Sally's right about the API, but she's missing the cost"), and let one persona pick up a thread another dropped. Never change what an agent argued — weave delivery, preserve substance.
+Even with everyone caught up on the room, a round taken in parallel means no agent has yet seen the others' turns from that same round — so left raw they reply alongside one another, not to one another. Reorder turns so a rebuttal lands right after what it rebuts, add the connective phrasing real talk has ("Hold on, fake-Tomek, that's backwards", "fake-Ela's right about the API, but she's missing the cost"), and let one persona pick up a thread another dropped. Never change what an agent argued — weave delivery, preserve substance.
 
 ## Model choice
 

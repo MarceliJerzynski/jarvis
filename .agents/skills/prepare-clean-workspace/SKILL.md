@@ -1,5 +1,5 @@
 ---
-name: prepare-project
+name: prepare-clean-workspace
 description: Prepares the development project and workspaces for work. Trigger when the user says "przygotuj projekt", "prepare project", "prepare workspace", "sync develop", or requests aligning workspaces with remote develop branch.
 ---
 
@@ -25,7 +25,7 @@ This skill automates the process of aligning your main development workspaces (`
 ### Step 1: Run the Preparation Tool
 1. Execute the shell script bundled with this skill:
    ```bash
-   bash /workspace/jarvis/.agents/skills/prepare-project/scripts/prepare_project.sh < /dev/null
+   bash /workspace/jarvis/.agents/skills/prepare-clean-workspace/scripts/prepare_project.sh < /dev/null
    ```
 2. **VPN Disconnection Guard:**
    - If the script outputs errors related to `git pull` or connectivity issues, check if the host VPN is disconnected.

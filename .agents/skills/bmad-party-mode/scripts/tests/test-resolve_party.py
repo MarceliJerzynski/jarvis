@@ -13,7 +13,7 @@ import resolve_party as rp  # noqa: E402
 
 AGENTS = {
     "bmad-agent-analyst": {"name": "Mary", "icon": "📊", "title": "Analyst"},
-    "bmad-agent-pm": {"name": "John", "icon": "📋", "title": "PM"},
+    "bmad-agent-pm": {"name": "fake-Jan", "icon": "📋", "title": "PM"},
 }
 
 

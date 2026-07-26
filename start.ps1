@@ -7,6 +7,10 @@
 #   2. One-time login on host: gemini  (Login with Google)
 # ============================================================
 
+param(
+    [string]$Command = "gemini"
+)
+
 $ErrorActionPreference = "Stop"
 
 # --- Host paths - UPDATE according to your needs ---
@@ -55,14 +59,30 @@ if (Test-Path $EnvFilePath) {
     $EnvFileArg = @("--env-file", $EnvFilePath)
 }
 
-Write-Host "Starting container '$ImageName'..." -ForegroundColor Cyan
+$ContainerName = "jarvis-sandbox"
 
-docker run -it --rm `
-  @EnvFileArg `
-  -v "${JarvisPath}:/workspace/jarvis" `
-  -v "${SpProdPath}:/workspace/sp-prod" `
-  -v "${SpMetGlobalPath}:/workspace/sp-met-global" `
-  -v "${SpCorePath}:/workspace/sp-core:ro" `
-  -v "${GeminiHomePath}:/home/node-user/.gemini" `
-  -w /workspace/jarvis `
-  $ImageName gemini
+# Check if the container is already running
+$runningContainer = docker ps -q --filter "name=^/${ContainerName}$"
+
+if ($runningContainer) {
+    Write-Host "Container '$ContainerName' is already running. Attaching to it..." -ForegroundColor Green
+    docker exec -it $ContainerName $Command
+} else {
+    # Check if a stopped container with this name exists and remove it
+    $stoppedContainer = docker ps -a -q --filter "name=^/${ContainerName}$"
+    if ($stoppedContainer) {
+        Write-Host "Removing stopped container '$ContainerName'..." -ForegroundColor Yellow
+        docker rm $ContainerName | Out-Null
+    }
+
+    Write-Host "Starting new container '$ImageName' as '$ContainerName'..." -ForegroundColor Cyan
+    docker run -it --rm --name $ContainerName `
+      @EnvFileArg `
+      -v "${JarvisPath}:/workspace/jarvis" `
+      -v "${SpProdPath}:/workspace/sp-prod" `
+      -v "${SpMetGlobalPath}:/workspace/sp-met-global" `
+      -v "${SpCorePath}:/workspace/sp-core:ro" `
+      -v "${GeminiHomePath}:/home/node-user/.gemini" `
+      -w /workspace/jarvis `
+      $ImageName $Command
+}

@@ -13,7 +13,7 @@ import resolve_personas as rp  # noqa: E402
 
 AGENTS = {
     "bmad-agent-analyst": {"name": "Mary", "icon": "📊", "title": "Analyst"},
-    "bmad-agent-pm": {"name": "John", "icon": "📋", "title": "PM"},
+    "bmad-agent-pm": {"name": "fake-Jan", "icon": "📋", "title": "PM"},
 }
 
 
@@ -56,10 +56,10 @@ class TestBuildPool(unittest.TestCase):
         self.assertEqual(set(pool), {"bmad-agent-analyst", "bmad-agent-pm"})
 
     def test_custom_rename_does_not_hijack_another_agents_name(self):
-        # Override the analyst slot, renaming it to "John" — the PM's name.
+        # Override the analyst slot, renaming it to "fake-Jan" — the PM's name.
         # The PM's name lookup must survive (last-writer-wins would corrupt it).
-        _, idx, _, _ = rp.build_pool(AGENTS, [{"code": "analyst", "name": "John"}])
-        self.assertEqual(idx["john"], "bmad-agent-pm")
+        _, idx, _, _ = rp.build_pool(AGENTS, [{"code": "analyst", "name": "fake-Jan"}])
+        self.assertEqual(idx["fake-jan"], "bmad-agent-pm")
 
     def test_brief_carries_model_and_capabilities(self):
         pool, _, _, _ = rp.build_pool(
