@@ -52,3 +52,20 @@ This glossary acts as the single source of truth for metallurgical terminology a
 *   **Snapshot State (MatExtendedDataCommand):** Stores the complete pre-operation state (metadata, location, and allocations) of a material before an event occurs.
 *   **Undo Pattern (Compensation):** The rollback engine (`MatEventUndoService`) that cancels tracking events (setting status to `CANCELED` but retaining the record for audit) and restores the material's state using snapshots and specialized CDI handlers.
 *   **UndoClosureBuilder (Atomic Closure):** Computes the atomic group of events that must be rolled back together, enforcing that no subsequent events have occurred on the material.
+
+---
+
+## 6. Key Codebase Architectural Conventions
+
+*   **Repository Pattern (Ports & Adapters):**
+    *   **Repository Interfaces (`*RepositoryIf`):** Defined as ports in the `-business` module. They must extend `RepositoryBaseIf<Entity, IdType>`.
+    *   **Repository Implementations (`*Repository`):** Defined as JPA adapters in the `-infrastructure` module. They must extend `AbstractPanacheRepositoryBase<Entity, IdType>`, implement the respective `*RepositoryIf` interface, and be annotated with `@ApplicationScoped`.
+*   **AppService Pattern (API & Application Layer):**
+    *   **AppService Interfaces (`*AppServiceIf`):** Defined in the `-com-api` module. They act as public API contracts (REST / endpoints).
+    *   **AppService Implementations (`*AppService`):** Defined in the `-com` module, implementing the respective `*AppServiceIf` interface and annotated with CDI scopes (e.g., `@ApplicationScoped`).
+*   **MapStruct Extensible Mappers:**
+    *   Written as a `public abstract class` extending `ExtensibleEntityMapperIf<Data, Entity, DTO>`. This supports full serialization between snapshot data, JPA entities, and DTOs.
+    *   Annotated with MapStruct `@Mapper(config = ExtensibleEntityMappingConfig.class, ...)`.
+*   **Localized Base Exceptions:**
+    *   Exceptions extend the component's base exception (e.g., `SpProdtrackingException`, which extends `BaseException`).
+    *   They define constructors accepting `Object... aParams` to allow localized message parameter interpolation.

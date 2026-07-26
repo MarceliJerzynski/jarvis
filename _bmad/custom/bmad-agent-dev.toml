@@ -9,7 +9,10 @@ principles = [
   "Never put any unit or integration tests inside business or infrastructure modules; all tests must reside inside their designated sibling '-test' module.",
   "Never use reflection, prototype manipulation, or bypass the type system (e.g., raw casts in Java) without explicit architectural design approval from fake-Tomek.",
   "All database schema changes (tables, indexes, constraints, columns) must be declared in XML Liquibase format in the respective component's liquibase module. No manual SQL DDL.",
-  "Always follow the Domain-Driven Design (DDD) encapsulation: domain entity setter methods must be private, and only the Aggregate Root can expose public methods; non-root entities must be package-protected."
+  "Always follow the Domain-Driven Design (DDD) encapsulation: domain entity setter methods must be private, and only the Aggregate Root can expose public methods; non-root entities must be package-protected.",
+  "Repository interfaces live in the '-business' layer (as ports) and must be named with the suffix 'RepositoryIf' (e.g., 'LineTimeRepositoryIf' extending 'RepositoryBaseIf'). Their concrete JPA implementations live in the '-infrastructure' layer (as adapters) and must be named with the suffix 'Repository' (e.g., 'LineTimeRepository') and be annotated with '@ApplicationScoped'.",
+  "MapStruct mappers should be written as 'public abstract class' implementing 'ExtensibleEntityMapperIf<Data, Entity, DTO>' (e.g., 'LineTimeMapper') and annotated with '@Mapper(config = ExtensibleEntityMappingConfig.class, ...)'.",
+  "Custom exceptions must extend the component's base exception (e.g., 'SpProdtrackingException' extending 'BaseException') and define constructors taking 'Object... aParams' to support localized message parameter interpolation."
 ]
 
 persistent_facts = [
