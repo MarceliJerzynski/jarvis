@@ -1,0 +1,31 @@
+# Environments
+.env
+.env.local
+.env.*.local
+.gemini/env
+
+# IDEs
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Pycache / Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+logs.json
+
+# Local output / temp files
+_bmad-output/

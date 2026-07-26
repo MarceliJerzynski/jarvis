@@ -1,0 +1,7 @@
+[agent]
+name = "fake-Jan"
+
+[[agent.menu]]
+code = "AJ"
+description = "Analyze raw Jira ticket, perform gap checks, and refactor using custom template"
+skill = "bmad-analyze-jira"

@@ -1,0 +1,21 @@
+# Team / enterprise overrides for _bmad/config.toml.
+# Committed to the repo — applies to every developer on the project.
+# Tables deep-merge over base config; keyed entries merge by key.
+# Example: override an agent descriptor, or add a new agent.
+#
+# [agents.bmad-agent-pm]
+# description = "Prefers short, bulleted PRDs over narrative drafts."
+
+[agents.bmad-agent-pm]
+name = "fake-Jan"
+
+[agents.bmad-agent-ux-designer]
+name = "Sally (Disabled)"
+title = "UX Designer"
+icon = "🚫"
+description = "WYŁĄCZONA: W tym projekcie decyzje UI/UX są podejmowane bezpośrednio przez Marcelego we współpracy z ludzkim projektantem. Agent UX nie uczestniczy w pracach."
+
+[[agents.bmad-agent-pm.menu]]
+code = "AJ"
+description = "Analyze raw Jira ticket, perform gap checks, and refactor using custom template"
+skill = "bmad-analyze-jira"

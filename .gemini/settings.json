@@ -1,0 +1,47 @@
+{
+  "tools": {
+    "sandbox": false
+  },
+  "context": {
+    "includeDirectories": [
+      "/workspace/sp-prod",
+      "/workspace/sp-met-global",
+      "/workspace/sp-core"
+    ]
+  },
+  "model": {
+    "name": "gemini-3.5-flash"
+  },
+  "hooksConfig": {
+    "enabled": true,
+    "notifications": false
+  },
+  "ui": {
+    "terminalBuffer": true,
+    "incrementalRendering": true
+  },
+  "hooks": {
+    "BeforeAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "name": "Jarvis",
+            "command": "python3 /workspace/jarvis/.gemini/hooks/timestamp-start.py"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "name": "Jarvis",
+            "command": "python3 /workspace/jarvis/.gemini/hooks/timestamp-end.py"
+          }
+        ]
+      }
+    ]
+  }
+}
