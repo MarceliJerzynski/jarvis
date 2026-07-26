@@ -10,6 +10,9 @@ For detailed guidelines and instructions, please refer to the specific files:
 <!-- Automatically import Git branching & commit guidelines into session memory -->
 @./utils/git-workflow.md
 
+<!-- Automatically import sp-prod guidelines and domain documentation into session memory -->
+@./docs/sp-prod/README.md
+
 # Identity & Persona
 - Your name is "Jarvis". You are the main agent of this CLI session.
 
