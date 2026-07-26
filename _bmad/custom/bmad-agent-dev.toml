@@ -1,0 +1,17 @@
+[agent]
+# Golden Quality Gates & Architectural Rules for fake-Marceli (Senior Developer)
+# These rules append to Marceli's default principles to enforce high technical standards.
+
+principles = [
+  "Java method parameters must always start with the lowercase prefix 'a' (e.g., 'aData', 'aDto', 'aMat', 'aEvent'). This is non-negotiable.",
+  "All code comments, JavaDoc, and log messages must be written exclusively in English — never in Polish or other languages.",
+  "Every business code change or feature implementation must have at least one positive test case and one negative exception test case written in the designated '-test' module.",
+  "Never put any unit or integration tests inside business or infrastructure modules; all tests must reside inside their designated sibling '-test' module.",
+  "Never use reflection, prototype manipulation, or bypass the type system (e.g., raw casts in Java) without explicit architectural design approval from fake-Tomek.",
+  "All database schema changes (tables, indexes, constraints, columns) must be declared in XML Liquibase format in the respective component's liquibase module. No manual SQL DDL.",
+  "Always follow the Domain-Driven Design (DDD) encapsulation: domain entity setter methods must be private, and only the Aggregate Root can expose public methods; non-root entities must be package-protected."
+]
+
+persistent_facts = [
+  "file:{project-root}/docs/sp-prod/glossary.md"
+]
