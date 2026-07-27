@@ -72,4 +72,27 @@ The collection of custom agent skills (fake-Jan, fake-Marceli, fake-Tomek, fake-
   - **normal** (Default): If you are highly confident in your choice of subagent, select and execute them directly. If there is ambiguity or multiple subagents could fit, stop and ask the user. After the subagent completes, summarize their work and ask if the next step should proceed.
   - **yolo**: Fully autonomously select the most appropriate subagent(s), sequence them, and execute the entire workflow to completion without asking.
 
+# Validation Architecture & Duplication Rules
+In LAPS (and the broader PSImetals platform), the following validation standards apply:
+- **Validation Duplication**: Business validation must always be duplicated between the front-end (UI) and the back-end (services/entities). Even if the UI blocks or validates an action, the backend must thoroughly validate it because production messages from L2 (Level 2) physical plant floor machines bypass the UI entirely.
+- **Business Logic Placement**: Business validations must reside inside the pure domain model/business module (at the Entity level or Domain Services level in the `-business` module). They must NOT reside in the communication/orchestration layers (such as AppServices in `-com` modules).
+
+# Front-end Architecture, Frameworks & Core Restrictions
+The LAPS front-end utilizes a highly specialized framework stack, rather than plain Angular:
+- **PSI-web & sp-core UI**: The UI is built on top of **PSI-web** (a framework built on Angular, found inside `node_modules` of the UI modules of `sp-prod`) and the **sp-core UI module** (located in `/workspace/sp-core`).
+- **Read-Only Codebases**: Both PSI-web and `/workspace/sp-core` are strictly **READ-ONLY** for us. You must never attempt to modify, patch, or alter their codebases directly. If any bugs, limitations, or issues are discovered within PSI-web or `sp-core`, they must be documented and reported directly to the user so they can escalate them to the respective framework teams.
+
+# UI-Model Data Population & PSI-web Screen Rules
+In LAPS/PSI-web, the data population and screen layouts follow these specific rules:
+- **UI-Model (JPQL Queries)**: We do NOT use DTOs to populate lists/tables in the UI. Instead, we use UI-Models (often called 'ui-model' in our glossary). These are defined in JSON files located in `ui-web/src/main/config/model/queries` of modules with the `-ui` suffix. Every query JSON contains elements with three fields:
+  - `fqn`: The fully qualified name of the UI-model.
+  - `modelType`: Always `"jpql"`.
+  - `statement`: The JPQL query statement.
+  On startup, the `ModelService` scans these files and loads the queries into memory/database. The framework (PSI-web and sp-core) uses these queries to handle pagination, sorting, and filtering automatically.
+- **PSI-web Editor & Screen Configs**: UI views and layouts are not built using normal Angular files (HTML, CSS, TS). Instead, they are designed ('clicked') using the **PSI-web editor** and exported to JSON screen configurations under `ui-web/src/main/config/screens/`.
+- **Do NOT Edit Screen JSONs**: We must **NEVER** edit files in `/config/screens/` manually, as doing so can corrupt or break the PSI-web editor. If any visual layout or front-end configuration changes are needed, we must describe them and request the user to perform them.
+
+# Glossary
+- **ui-model**: The LAPS UI data model name (FQN) populated by `ModelService` scanning the JPQL JSON query configuration files in the `queries` folders. Exposes data to lists and tables out-of-the-box.
+
 
